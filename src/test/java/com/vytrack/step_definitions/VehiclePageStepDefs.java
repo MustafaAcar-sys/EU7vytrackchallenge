@@ -21,6 +21,7 @@ public class VehiclePageStepDefs {
       DashboardPage dashboardPage=new DashboardPage();
         dashboardPage.navigateToModule(tab, module);
         BrowserUtils.waitFor(5);}
+        BrowserUtils.waitFor(3);}
     @Then("the title verified as {string}")
     public void the_title_verified_as(String pageName) {
         System.out.println("pageName = " + pageName);
@@ -55,6 +56,13 @@ public class VehiclePageStepDefs {
          }
 
     @Then("the filter name {string} should be displayed")
+    @When("the user clicks on a filter name")
+    public void the_user_clicks_on_a_filter_name()  {
+        vehicleFiltersPage.filterTypes.click();
+
+         }
+
+    @Then("the filter name should be displayed")
     public void the_filter_name_should_be_displayed(String filterName) {
        Assert.assertTrue(filterName, vehicleFiltersPage.filter_container.getText().contains(filterName));
             }

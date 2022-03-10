@@ -10,10 +10,21 @@ Feature:
     Then the title verified as "All Cars"
 
 @will
+@1
+    Scenario: Navigating Filter Button
+    Then the title verified as "All Cars"
+
+@2
     Scenario: Navigating Manage Filter Button
     And the user clicks the filters icon
     Then the "Manage filters" button  should be displayed
 
+@3
+    Scenario: Clicking different filter types
+    When the user clicks the filters icon
+    And  the user clicks the Manage filters button
+    And  the user clicks on a filter name
+    Then the filter name should be displayed
   @will
     Scenario: Clicking different filter types
     When the user clicks the filters icon
