@@ -3,11 +3,13 @@ import com.vytrack.pages.ContactsPage;
 import com.vytrack.pages.DashboardPage;
 import com.vytrack.pages.VehicleFiltersPage;
 import com.vytrack.utilities.BrowserUtils;
+import com.vytrack.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -20,7 +22,6 @@ public class VehiclePageStepDefs {
     public void the_user_navigates_to_page(String tab, String module) {
       DashboardPage dashboardPage=new DashboardPage();
         dashboardPage.navigateToModule(tab, module);
-        BrowserUtils.waitFor(5);}
         BrowserUtils.waitFor(3);}
     @Then("the title verified as {string}")
     public void the_title_verified_as(String pageName) {
@@ -48,24 +49,27 @@ public class VehiclePageStepDefs {
        vehicleFiltersPage.manageFilters.click();
        BrowserUtils.waitFor(3);
     }
+    @When("the user clicks on filters")
+    public void the_user_clicks_on_filter() {
 
-    @When("the user clicks on {string} filter")
-    public void the_user_clicks_on_filter(String string)  {
-        vehicleFiltersPage.filterTypes.click();
+       vehicleFiltersPage.selectFilterBox();
+       BrowserUtils.waitFor(2);
+        }
+
+
+
+    @Then("the filters should be displayed")
+    public void the_filter_should_be_displayed() {
+
+        List<String> file = BrowserUtils.getElementsText(vehicleFiltersPage.filter_container);
+        for (String s : file) {
+            System.out.println(s);
+
+        }
         BrowserUtils.waitFor(3);
-         }
+       Assert.assertTrue(Driver.get().findElement(By.xpath("//div[@class='filter-item oro-drop']")).isDisplayed());
 
-    @Then("the filter name {string} should be displayed")
-    @When("the user clicks on a filter name")
-    public void the_user_clicks_on_a_filter_name()  {
-        vehicleFiltersPage.filterTypes.click();
-
-         }
-
-    @Then("the filter name should be displayed")
-    public void the_filter_name_should_be_displayed(String filterName) {
-       Assert.assertTrue(filterName, vehicleFiltersPage.filter_container.getText().contains(filterName));
-            }
+        }
 
 
 //4
@@ -75,12 +79,18 @@ public class VehiclePageStepDefs {
         BrowserUtils.waitFor(3);
     }
     @Then("the user types a {string} on a filter type")
-    public void the_user_types_a_on_a_filter_type(String string) {
+    public void the_user_types_a_on_a_filter_type(String filterName) {
+
+           vehicleFiltersPage.filterName.sendKeys("License Plate");
+            vehicleFiltersPage.licencePlate.click();
+            vehicleFiltersPage.filterName.clear();
 
 
     }
     @Then("the written {string} should be displayed")
-    public void the_written_should_be_displayed(String string) {
+    public void the_written_should_be_displayed(String filterName) {
+
+        Assert.assertTrue(Driver.get().findElement(By.xpath("//input[@type='search']")).isDisplayed());
 
 
     }

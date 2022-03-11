@@ -23,30 +23,22 @@ Feature:
     Scenario: Clicking different filter types
     When the user clicks the filters icon
     And  the user clicks the Manage filters button
-    And  the user clicks on a filter name
-    Then the filter name should be displayed
-  @will
-    Scenario: Clicking different filter types
-    When the user clicks the filters icon
-    And  the user clicks the Manage filters button
-    And  the user clicks on "License Plate" filter
-    Then the filter name "License Plate" should be displayed
-
+    And  the user clicks on filters
+    Then the filters should be displayed
 
 @4
     Scenario Outline: Applying Filters by typing <filterName>
-    When  the user clicking the Manage filters button
+    When the user clicks the filters icon
+    Then  the user clicking the Manage filters button
     Then   the user types a "<filterName>" on a filter type
     And  the written "<filterName>" should be displayed
 
     Examples:
       | filterName    |
       | License Plate |
-      | Tags          |
-      | Driver        |
-      | Location      |
-      | Model Year    |
-      | Color         |
+
+
+
 
   @5
   Scenario: Removing Filters
